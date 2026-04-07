@@ -1,44 +1,18 @@
-import { useState, useEffect } from "react";
-import { Button } from "primereact/button";
+import { ConfirmDialog } from "primereact/confirmdialog";
 import "./App.css";
 import GameGrid from "./features/games/components/GameGrid";
 
-function App() {
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "light" || saved === "dark") return saved;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-
+export default function App() {
   return (
-    <div className="app-layout">
-      <header className="app-header">
-        <div className="app-header-text">
-          <h1>Catálogo de Juegos</h1>
-          <p>Gestiona tu colección de videojuegos</p>
-        </div>
-        <Button
-          icon={theme === "dark" ? "pi pi-sun" : "pi pi-moon"}
-          label={theme === "dark" ? "Modo claro" : "Modo oscuro"}
-          severity="secondary"
-          outlined
-          onClick={toggleTheme}
-          className="theme-toggle"
-        />
-      </header>
-      <GameGrid />
+    <div className="min-h-screen bg-gray-50">
+      <ConfirmDialog />
+      <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col gap-8">
+        <header className="pb-6 border-b border-gray-200">
+          <h1 className="text-3xl font-bold text-gray-800">Catálogo de Juegos</h1>
+          <p className="text-gray-500 mt-1 text-sm">Gestiona tu colección de videojuegos</p>
+        </header>
+        <GameGrid />
+      </div>
     </div>
   );
 }
-
-export default App;

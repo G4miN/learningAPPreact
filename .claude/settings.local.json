@@ -5,7 +5,10 @@
       "Skill(update-config)",
       "Skill(update-config:*)",
       "Bash(npm install:*)",
-      "Bash(npm --version)"
+      "Bash(npm --version)",
+      "Bash(node -e \"const p = require\\('./node_modules/primereact/package.json'\\); console.log\\(p.version\\)\")",
+      "Bash(node -e \"const a = require\\('./node_modules/primereact/api/index.js'\\); console.log\\(Object.keys\\(a\\)\\)\")",
+      "Bash(npm uninstall:*)"
     ]
   }
 }

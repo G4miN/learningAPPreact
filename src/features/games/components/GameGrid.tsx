@@ -6,29 +6,27 @@ export default function GameGrid() {
   const { state, refresh } = useGames();
 
   return (
-    <>
+    <div className="flex flex-col gap-6">
       {state.status === "loading" && (
-        <div className="game-grid-status">Cargando juegos...</div>
+        <p className="text-center text-gray-400 py-12">Cargando juegos...</p>
       )}
       {state.status === "error" && (
-        <div className="game-grid-status game-grid-error">
-          Error: {state.message}
-        </div>
+        <p className="text-center text-red-500 py-12">Error: {state.message}</p>
       )}
       {state.status === "success" && (
-        <div className="game-grid">
-          {state.data.length === 0 ? (
-            <div className="game-grid-empty">
-              No hay juegos registrados aún.
-            </div>
-          ) : (
-            state.data.map((game) => (
-              <GameCard key={game.idGame} game={game} />
-            ))
-          )}
-        </div>
+        state.data.length === 0 ? (
+          <p className="text-center text-gray-400 py-12 border-2 border-dashed border-gray-200 rounded-xl">
+            No hay juegos registrados aún.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {state.data.map((game) => (
+              <GameCard key={game.idGame} game={game} onRefresh={refresh} />
+            ))}
+          </div>
+        )
       )}
       <AddGameForm onSuccess={refresh} />
-    </>
+    </div>
   );
 }
