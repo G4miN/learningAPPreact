@@ -1,6 +1,7 @@
 export type Game = {
-    idGame: number
+    id: number
     title: string
+    genreId?: number
     genre: string
     price: number
     releaseDate: string

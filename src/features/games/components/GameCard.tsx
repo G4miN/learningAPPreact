@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "primereact/button";
@@ -32,16 +32,35 @@ export default function GameCard({ game, onRefresh }: Props) {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<UpdateIn, unknown, UpdateOut>({
     resolver: zodResolver(UpdateGameSchema),
     defaultValues: {
-      idGame: game.idGame,
+      idGame: game.id,
       title: game.title,
+      genreId: game.genreId,
       price: game.price,
       releaseDate: game.releaseDate,
     },
   });
+
+  useEffect(() => {
+    if (!editOpen || genreState.status !== "success") return;
+
+    const matchedGenre = genreState.data.find(
+      (genre) =>
+        genre.name.trim().toLowerCase() === game.genre.trim().toLowerCase(),
+    );
+
+    reset({
+      idGame: game.id,
+      title: game.title,
+      genreId: game.genreId ?? matchedGenre?.id,
+      price: game.price,
+      releaseDate: game.releaseDate,
+    });
+  }, [editOpen, genreState, game, reset]);
 
   const onUpdate = handleSubmit(async (data) => {
     await gameService.update(data);
@@ -54,7 +73,7 @@ export default function GameCard({ game, onRefresh }: Props) {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await gameService.delete(game.idGame);
+      await gameService.delete(game.id);
       setDeleteOpen(false);
       onRefresh();
     } finally {
