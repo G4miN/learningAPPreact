@@ -1,5 +1,6 @@
 
-const BASE_URL = "https://gamefactoryapiym.azurewebsites.net";
+//const BASE_URL = "https://gamefactoryapiym.azurewebsites.net";
+const BASE_URL = "https://localhost:7273";
 
 const apiClient = {
     get: async <T>(endpoint: string): Promise<T> => {
@@ -15,9 +16,14 @@ const apiClient = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
-        }).then((res) => {
-            if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`)
-            return res.json()
+        }).then(async (res) => {
+
+            if (res.status === 204) return undefined as T;
+
+            const contentType = res.headers.get("content-type") ?? "";
+            if (!contentType.includes("application/json")) return undefined as T;
+
+            return (await res.json()) as T;
         })
     },
 

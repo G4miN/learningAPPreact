@@ -1,24 +1,34 @@
 import { useGames } from "../hooks/useGames";
+import AddGameForm from "./AddGameForm";
 import GameCard from "./GameCard";
 
 export default function GameGrid() {
-  const state = useGames();
-
-  if (state.status === "loading") {
-    return <div className="game-grid-loading">Cargando juegos...</div>;
-  }
-
-  if (state.status === "error") {
-    return <div className="game-grid-error">Error: {state.message}</div>;
-  }
+  const { state, refresh } = useGames();
 
   return (
-    <div className="game-grid">
-      {state.data.length === 0 ? (
-        <div className="game-grid-empty">No hay juegos registrados aún.</div>
-      ) : (
-        state.data.map((game) => <GameCard key={game.idGame} game={game} />)
+    <>
+      {state.status === "loading" && (
+        <div className="game-grid-status">Cargando juegos...</div>
       )}
-    </div>
+      {state.status === "error" && (
+        <div className="game-grid-status game-grid-error">
+          Error: {state.message}
+        </div>
+      )}
+      {state.status === "success" && (
+        <div className="game-grid">
+          {state.data.length === 0 ? (
+            <div className="game-grid-empty">
+              No hay juegos registrados aún.
+            </div>
+          ) : (
+            state.data.map((game) => (
+              <GameCard key={game.idGame} game={game} />
+            ))
+          )}
+        </div>
+      )}
+      <AddGameForm onSuccess={refresh} />
+    </>
   );
 }

@@ -1,42 +1,76 @@
+/* ── Layout ── */
 .app-layout {
-  padding: 32px 24px;
+  padding: 32px 24px 64px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
 
+/* ── Header ── */
 .app-header {
-  text-align: center;
-  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--border);
 }
 
-.app-header h1 {
-  margin: 0 0 8px;
-  font-size: 40px;
+.app-header-text h1 {
+  font-size: 28px;
+  letter-spacing: -0.5px;
 }
 
-.app-header p {
+.app-header-text p {
+  font-size: 14px;
   color: var(--text);
-  font-size: 16px;
+  margin-top: 4px;
 }
 
-/* Game Grid */
+/* ── Theme Toggle ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-h);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-hover);
+}
+
+.theme-toggle-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ── Game Grid ── */
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 
-.game-grid-loading,
-.game-grid-error {
+.game-grid-status {
+  grid-column: 1 / -1;
   text-align: center;
   padding: 48px 0;
   color: var(--text);
 }
 
 .game-grid-error {
-  color: #e53e3e;
+  color: #ef4444;
 }
 
 .game-grid-empty {
@@ -44,31 +78,66 @@
   text-align: center;
   padding: 48px;
   border: 2px dashed var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   color: var(--text);
+  font-size: 14px;
 }
 
-/* Game Card */
+/* ── Game Card ── */
 .game-card {
+  background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: left;
-  background: var(--bg);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  transition: transform 0.15s, box-shadow 0.15s;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .game-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.game-card-accent {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #c084fc);
+}
+
+.game-card-body {
+  padding: 18px 20px 20px;
+}
+
+.game-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .game-card-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-h);
-  margin: 0 0 14px;
+  line-height: 1.3;
+}
+
+.game-card-price {
+  flex-shrink: 0;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.game-card-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 14px;
 }
 
 .game-card-meta {
@@ -81,11 +150,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .game-card-label {
   color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-card-label-icon {
+  font-size: 12px;
+  opacity: 0.7;
 }
 
 .game-card-value {
@@ -93,29 +170,41 @@
   font-weight: 500;
 }
 
-.game-card-price {
-  display: inline-flex;
+/* ── Add Game Form ── */
+.add-game-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.add-game-header {
+  display: flex;
   align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.add-game-header-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   background: var(--accent-bg);
-  color: var(--accent);
-  border-radius: 6px;
-  padding: 2px 8px;
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.add-game-header h2 {
+  font-size: 16px;
   font-weight: 600;
 }
 
-/* Add Game Section */
-.add-game-section {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 28px;
-  text-align: left;
-}
-
-.add-game-section h2 {
-  margin: 0 0 20px;
-  font-size: 20px;
-  color: var(--text-h);
+.add-game-body {
+  padding: 24px;
 }
 
 .form-grid {
@@ -132,15 +221,17 @@
 }
 
 .form-field label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-h);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text);
 }
 
 .form-field input {
-  padding: 9px 12px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
   color: var(--text-h);
   background: var(--bg);
@@ -157,27 +248,38 @@
 }
 
 .form-field input.input-error {
-  border-color: #e53e3e;
+  border-color: #ef4444;
 }
 
 .error-msg {
-  font-size: 12px;
-  color: #e53e3e;
+  font-size: 11px;
+  color: #ef4444;
+  font-weight: 500;
 }
 
 .btn-primary {
-  padding: 10px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
   background: var(--accent);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   font-family: var(--sans);
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: 0.2px;
 }
 
-.btn-primary:hover {
-  opacity: 0.85;
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
