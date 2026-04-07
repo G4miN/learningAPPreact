@@ -5,6 +5,3 @@ export type Game = {
     price: number
     releaseDate: string
 }
-
-export type CreateGamePayload = Omit<Game, "idGame">
-export type UpdateGamePayload = Game

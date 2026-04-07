@@ -1,5 +1,6 @@
+import type { CreateGamePayload, UpdateGamePayload } from "../../../schemas/game.schema"
 import apiClient from "../../../shared/services/apiClient"
-import type { CreateGamePayload, Game, UpdateGamePayload } from "../../../types/game.types"
+import type { Game } from "../../../types/game.types"
 const END_POINT = "/api/Game"
 
 const gameService = {
