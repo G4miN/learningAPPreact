@@ -4,20 +4,21 @@ import GameCard from "./GameCard";
 export default function GameGrid() {
   const state = useGames();
 
-  switch (state.status) {
-    case "loading":
-      return <div>Cargando juegos...</div>;
-
-    case "error":
-      return <div>Error: {state.message}</div>;
-
-    case "success":
-      return (
-        <div>
-          {state.data.map((game) => (
-            <GameCard key={game.idGame} game={game} />
-          ))}
-        </div>
-      );
+  if (state.status === "loading") {
+    return <div className="game-grid-loading">Cargando juegos...</div>;
   }
+
+  if (state.status === "error") {
+    return <div className="game-grid-error">Error: {state.message}</div>;
+  }
+
+  return (
+    <div className="game-grid">
+      {state.data.length === 0 ? (
+        <div className="game-grid-empty">No hay juegos registrados aún.</div>
+      ) : (
+        state.data.map((game) => <GameCard key={game.idGame} game={game} />)
+      )}
+    </div>
+  );
 }
