@@ -1,4 +1,6 @@
-/* ── Layout ── */
+/* ─────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────── */
 .app-layout {
   padding: 32px 24px 64px;
   display: flex;
@@ -6,7 +8,9 @@
   gap: 32px;
 }
 
-/* ── Header ── */
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
 .app-header {
   display: flex;
   align-items: center;
@@ -26,36 +30,18 @@
   margin-top: 4px;
 }
 
-/* ── Theme Toggle ── */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+/* Theme toggle — PrimeReact Button shape override */
+.theme-toggle.p-button {
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--card-bg);
-  color: var(--text-h);
   font-size: 13px;
-  font-weight: 500;
   font-family: var(--sans);
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
-  box-shadow: var(--shadow);
+  padding: 8px 16px;
   white-space: nowrap;
 }
 
-.theme-toggle:hover {
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-hover);
-}
-
-.theme-toggle-icon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-/* ── Game Grid ── */
+/* ─────────────────────────────────────────
+   GAME GRID
+───────────────────────────────────────── */
 .game-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -63,7 +49,6 @@
 }
 
 .game-grid-status {
-  grid-column: 1 / -1;
   text-align: center;
   padding: 48px 0;
   color: var(--text);
@@ -74,7 +59,6 @@
 }
 
 .game-grid-empty {
-  grid-column: 1 / -1;
   text-align: center;
   padding: 48px;
   border: 2px dashed var(--border);
@@ -83,7 +67,9 @@
   font-size: 14px;
 }
 
-/* ── Game Card ── */
+/* ─────────────────────────────────────────
+   GAME CARD
+───────────────────────────────────────── */
 .game-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -131,7 +117,6 @@
   padding: 3px 10px;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.2px;
 }
 
 .game-card-divider {
@@ -155,14 +140,6 @@
 
 .game-card-label {
   color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.game-card-label-icon {
-  font-size: 12px;
-  opacity: 0.7;
 }
 
 .game-card-value {
@@ -170,7 +147,9 @@
   font-weight: 500;
 }
 
-/* ── Add Game Form ── */
+/* ─────────────────────────────────────────
+   ADD GAME FORM
+───────────────────────────────────────── */
 .add-game-section {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -190,12 +169,13 @@
 .add-game-header-icon {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--accent-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  color: var(--accent);
+  font-size: 14px;
 }
 
 .add-game-header h2 {
@@ -228,58 +208,161 @@
   color: var(--text);
 }
 
-.form-field input {
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 14px;
-  color: var(--text-h);
-  background: var(--bg);
-  font-family: var(--sans);
-  transition: border-color 0.2s, box-shadow 0.2s;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.form-field input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-bg);
-}
-
-.form-field input.input-error {
-  border-color: #ef4444;
-}
-
 .error-msg {
   font-size: 11px;
   color: #ef4444;
   font-weight: 500;
 }
 
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 10px;
+/* ─────────────────────────────────────────
+   PRIMEREACT OVERRIDES
+───────────────────────────────────────── */
+
+/* Shared border/size for wrapper components */
+.form-field .p-dropdown,
+.form-field .p-inputnumber {
+  width: 100%;
+  height: 40px;
   font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
   font-family: var(--sans);
-  transition: opacity 0.2s, transform 0.15s;
-  letter-spacing: 0.2px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-h);
+  box-shadow: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.btn-primary:hover:not(:disabled) {
+/* Standalone InputText (title field) */
+.form-field > .p-inputtext {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-h);
+  box-shadow: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* InputNumber: inner input fills the wrapper, no extra border */
+.form-field .p-inputnumber .p-inputtext {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: var(--sans);
+  color: var(--text-h);
+  box-shadow: none;
+}
+
+/* Dropdown: inner label padding and alignment */
+.form-field .p-dropdown .p-dropdown-label {
+  padding: 0 12px;
+  line-height: 38px;
+  color: var(--text-h);
+  font-size: 14px;
+  font-family: var(--sans);
+}
+
+.form-field .p-dropdown.p-placeholder .p-dropdown-label {
+  color: var(--text);
+}
+
+.form-field .p-dropdown .p-dropdown-trigger {
+  width: 36px;
+  color: var(--text);
+}
+
+/* Focus ring for all field types */
+.form-field .p-inputtext:focus,
+.form-field .p-dropdown:focus,
+.form-field .p-dropdown.p-focus,
+.form-field .p-inputnumber:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+  outline: none;
+}
+
+/* Calendar: full-width flex row */
+.form-field .p-calendar {
+  width: 100%;
+  display: flex;
+  height: 40px;
+}
+
+.form-field .p-calendar .p-inputtext {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  border-radius: var(--radius) 0 0 var(--radius);
+  border-right: none;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-h);
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: var(--sans);
+}
+
+.form-field .p-calendar .p-inputtext:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+  outline: none;
+}
+
+.form-field .p-calendar .p-datepicker-trigger {
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  border: 1px solid var(--border);
+  border-left: none;
+  background: var(--card-bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
+}
+
+.form-field .p-calendar .p-datepicker-trigger:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+/* Calendar popup title: fix missing space between month and year */
+.p-datepicker-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Submit button */
+.submit-btn.p-button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--sans);
+  padding: 0 22px;
+  height: 40px;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.submit-btn.p-button:hover:not(:disabled) {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
   opacity: 0.88;
   transform: translateY(-1px);
 }
 
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.submit-btn.p-button:focus {
+  box-shadow: 0 0 0 3px var(--accent-bg);
+  outline: none;
 }

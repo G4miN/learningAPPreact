@@ -1,3 +1,4 @@
+/* ── Design tokens ── */
 :root {
   --text: #6b7280;
   --text-h: #111827;
@@ -9,16 +10,8 @@
   --accent-border: rgba(124, 58, 237, 0.4);
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.08);
-
+  --radius: 10px;
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-
-  font: 15px/150% var(--sans);
-  letter-spacing: 0.15px;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
 }
 
 [data-theme="dark"] {
@@ -34,18 +27,28 @@
   --shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-#root {
-  width: 1160px;
-  max-width: 100%;
-  margin: 0 auto;
-  min-height: 100svh;
+/* ── Base ── */
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  font: 15px/1.5 var(--sans);
+  letter-spacing: 0.15px;
+  color: var(--text);
   background: var(--bg);
   transition: background 0.25s;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 1160px;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100svh;
 }
 
 h1, h2, h3 {

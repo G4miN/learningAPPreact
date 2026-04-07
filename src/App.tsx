@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Button } from "primereact/button";
 import "./App.css";
 import GameGrid from "./features/games/components/GameGrid";
 
@@ -26,12 +27,14 @@ function App() {
           <h1>Catálogo de Juegos</h1>
           <p>Gestiona tu colección de videojuegos</p>
         </div>
-        <button className="theme-toggle" onClick={toggleTheme}>
-          <span className="theme-toggle-icon">
-            {theme === "dark" ? "☀" : "☾"}
-          </span>
-          {theme === "dark" ? "Modo claro" : "Modo oscuro"}
-        </button>
+        <Button
+          icon={theme === "dark" ? "pi pi-sun" : "pi pi-moon"}
+          label={theme === "dark" ? "Modo claro" : "Modo oscuro"}
+          severity="secondary"
+          outlined
+          onClick={toggleTheme}
+          className="theme-toggle"
+        />
       </header>
       <GameGrid />
     </div>

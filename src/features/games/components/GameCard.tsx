@@ -22,8 +22,8 @@ export default function GameCard({ game }: Props) {
         <div className="game-card-divider" />
         <div className="game-card-meta">
           <div className="game-card-row">
-            <span className="game-card-label">Género ID</span>
-            <span className="game-card-value">{game.genreId}</span>
+            <span className="game-card-label">Género</span>
+            <span className="game-card-value">{game.genre}</span>
           </div>
           <div className="game-card-row">
             <span className="game-card-label">Lanzamiento</span>
