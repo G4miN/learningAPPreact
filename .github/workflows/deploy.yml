@@ -1,0 +1,43 @@
+name: Deploy Frontend to Azure
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install & Build
+        run: npm install && npm run build
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'GameFactoryAppYM'
+          publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
+          package: ./dist
+
+      - name: Move Shortcut ticket to Done
+        continue-on-error: true
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          STORY_ID=$(echo "$BRANCH" | grep -oP '(?<=sc-)\d+')
+          if [ -n "$STORY_ID" ]; then
+            curl -s -X PUT \
+              -H "Content-Type: application/json" \
+              -H "Shortcut-Token: ${{ secrets.SHORTCUT_API_TOKEN }}" \
+              -d '{"workflow_state_id": 500000010}' \
+              "https://api.app.shortcut.com/api/v3/stories/$STORY_ID"
+            echo "Ticket sc-$STORY_ID movido a Done"
+          else
+            echo "No se encontró ticket de Shortcut en el nombre de la rama"
+          fi

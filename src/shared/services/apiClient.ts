@@ -1,6 +1,6 @@
 
-//const BASE_URL = "https://gamefactoryapiym.azurewebsites.net";
-const BASE_URL = "https://localhost:7273";
+const BASE_URL = "https://gamefactoryapiym.azurewebsites.net";
+//const BASE_URL = "https://localhost:7273";
 
 const parseJsonIfPresent = async <T>(res: Response): Promise<T> => {
     if (res.status === 204) return undefined as T
