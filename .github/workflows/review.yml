@@ -1,0 +1,25 @@
+name: Move to In Review
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: [main]
+
+jobs:
+  move-to-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move Shortcut ticket to In Review
+        continue-on-error: true
+        env:
+          SHORTCUT_TOKEN: ${{ secrets.SHORTCUT_API_TOKEN }}
+        run: |
+          STORY_ID=$(echo "${{ github.head_ref }}" | grep -oP '(?<=sc-)\d+' | head -1)
+          if [ -n "$STORY_ID" ]; then
+            curl -s -X PUT \
+              -H "Content-Type: application/json" \
+              -H "Shortcut-Token: ${SHORTCUT_TOKEN}" \
+              -d '{"workflow_state_id": 500000009}' \
+              "https://api.app.shortcut.com/api/v3/stories/${STORY_ID}"
+            echo "Ticket sc-${STORY_ID} movido a In Review"
+          fi

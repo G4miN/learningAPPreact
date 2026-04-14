@@ -1,0 +1,24 @@
+name: Move to In Progress
+
+on:
+  push:
+    branches-ignore: [main]
+
+jobs:
+  move-to-in-progress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move Shortcut ticket to In Progress
+        continue-on-error: true
+        env:
+          SHORTCUT_TOKEN: ${{ secrets.SHORTCUT_API_TOKEN }}
+        run: |
+          STORY_ID=$(echo "${{ github.ref_name }}" | grep -oP '(?<=sc-)\d+' | head -1)
+          if [ -n "$STORY_ID" ]; then
+            curl -s -X PUT \
+              -H "Content-Type: application/json" \
+              -H "Shortcut-Token: ${SHORTCUT_TOKEN}" \
+              -d '{"workflow_state_id": 500000008}' \
+              "https://api.app.shortcut.com/api/v3/stories/${STORY_ID}"
+            echo "Ticket sc-${STORY_ID} movido a In Progress"
+          fi

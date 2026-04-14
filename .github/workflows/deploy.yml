@@ -28,16 +28,18 @@ jobs:
 
       - name: Move Shortcut ticket to Done
         continue-on-error: true
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          SHORTCUT_TOKEN: ${{ secrets.SHORTCUT_API_TOKEN }}
         run: |
-          BRANCH="${{ github.ref_name }}"
-          STORY_ID=$(echo "$BRANCH" | grep -oP '(?<=sc-)\d+')
+          STORY_ID=$(echo "$COMMIT_MSG" | grep -oP '(?<=sc-)\d+' | head -1)
           if [ -n "$STORY_ID" ]; then
             curl -s -X PUT \
               -H "Content-Type: application/json" \
-              -H "Shortcut-Token: ${{ secrets.SHORTCUT_API_TOKEN }}" \
+              -H "Shortcut-Token: ${SHORTCUT_TOKEN}" \
               -d '{"workflow_state_id": 500000010}' \
-              "https://api.app.shortcut.com/api/v3/stories/$STORY_ID"
-            echo "Ticket sc-$STORY_ID movido a Done"
+              "https://api.app.shortcut.com/api/v3/stories/${STORY_ID}"
+            echo "Ticket sc-${STORY_ID} movido a Done"
           else
-            echo "No se encontró ticket de Shortcut en el nombre de la rama"
+            echo "No se encontró ticket en el commit"
           fi
